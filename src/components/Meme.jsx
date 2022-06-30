@@ -12,16 +12,13 @@ const Meme = () => {
     const [allMemes, setAllMemes] = useState([])
 
 
+
     useEffect(() => {
-        async function getMemes() {
-            const res = await fetch("https://api.imgflip.com/get_memes")
-            const data = await res.json()
-            setAllMemes(data.data.memes)
-        }
-        getMemes()
+        fetch("https://api.imgflip.com/get_memes")
+            .then(res => res.json())
+            .then(data => setAllMemes(data.data.memes))
     }, [])
 
-    console.log(allMemes)
 
     function getMemeImage() {
         const randomNumber = Math.floor(Math.random() * allMemes.length)
@@ -48,7 +45,7 @@ const Meme = () => {
 
     return (
         <main>
-            <form className="form">
+            <div className="form">
                 <input
                     type="text"
                     placeholder="Top text"
@@ -73,7 +70,7 @@ const Meme = () => {
                 >
                     Get a new Meme Image
                 </button>
-            </form>
+            </div>
             <div className="meme-container">
                 <img className="meme-image" src={meme.randomImage} alt="" />
                 <h2 className="meme-text top">{meme.topText}</h2>
